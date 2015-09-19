@@ -9,9 +9,9 @@ namespace pg_web
     {
         public static void Register(HttpConfiguration config)
         {
-            // Конфигурация и службы веб-API
+            // Web API configuration and services
 
-            // Маршруты веб-API
+            // Web API routes
             config.MapHttpAttributeRoutes();
 
             config.Routes.MapHttpRoute(

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="24889446599c41ecbff73b6080259617" Name="Diagram1">
+        <EntityTypeShape EntityType="pgworkModel.Area" Width="1.5" PointX="3.5" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="pgworkModel.WorkArea" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="pgworkModel.WorkDay" Width="1.5" PointX="6.25" PointY="3.875" IsExpanded="true" />
+        <AssociationConnector Association="pgworkModel.FK_WorkArea_Area" ManuallyRouted="false" />
+        <AssociationConnector Association="pgworkModel.FK_WorkArea_WorkDay" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="pgworkModel.Device" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="pgworkModel.Employer" Width="1.5" PointX="0.75" PointY="3.75" />
+        <EntityTypeShape EntityType="pgworkModel.Label" Width="1.5" PointX="6.125" PointY="7.25" />
+        <EntityTypeShape EntityType="pgworkModel.Log" Width="1.5" PointX="2.75" PointY="4.75" />
+        <EntityTypeShape EntityType="pgworkModel.WorkEmployer" Width="1.5" PointX="0.75" PointY="7.75" />
+        <EntityTypeShape EntityType="pgworkModel.WorkShift" Width="1.5" PointX="2.75" PointY="7.75" />
+        <EntityTypeShape EntityType="pgworkModel.LastAreaAccess" Width="1.5" PointX="8.75" PointY="0.75" />
+        <EntityTypeShape EntityType="pgworkModel.WorkShiftAccessEmployer" Width="1.5" PointX="8.75" PointY="3.75" />
+        <EntityTypeShape EntityType="pgworkModel.WorkShiftNotificationEmployer" Width="1.5" PointX="8.75" PointY="6.75" />
+        <AssociationConnector Association="pgworkModel.FK_Label_Area" />
+        <AssociationConnector Association="pgworkModel.FK_WorkShift_WorkArea" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
