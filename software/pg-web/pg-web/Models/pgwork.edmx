@@ -1,0 +1,137 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="pgworkModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="WorkArea">
+          <Key>
+            <PropertyRef Name="workAreaId" />
+          </Key>
+          <Property Name="workAreaId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="workDayId" Type="int" Nullable="false" />
+          <Property Name="workAreaName" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="WorkDay">
+          <Key>
+            <PropertyRef Name="workDayId" />
+          </Key>
+          <Property Name="workDayId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="startTime" Type="int" Nullable="false" />
+          <Property Name="endTime" Type="int" Nullable="false" />
+          <Property Name="workDayState" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_WorkArea_WorkDay">
+          <End Role="WorkDay" Type="Self.WorkDay" Multiplicity="1" />
+          <End Role="WorkArea" Type="Self.WorkArea" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WorkDay">
+              <PropertyRef Name="workDayId" />
+            </Principal>
+            <Dependent Role="WorkArea">
+              <PropertyRef Name="workDayId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="pgworkModelStoreContainer">
+          <EntitySet Name="WorkArea" EntityType="Self.WorkArea" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="WorkDay" EntityType="Self.WorkDay" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_WorkArea_WorkDay" Association="Self.FK_WorkArea_WorkDay">
+            <End Role="WorkDay" EntitySet="WorkDay" />
+            <End Role="WorkArea" EntitySet="WorkArea" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="pgworkModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="WorkArea">
+          <Key>
+            <PropertyRef Name="workAreaId" />
+          </Key>
+          <Property Name="workAreaId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="workDayId" Type="Int32" Nullable="false" />
+          <Property Name="workAreaName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="WorkDay" Relationship="Self.FK_WorkArea_WorkDay" FromRole="WorkArea" ToRole="WorkDay" />
+        </EntityType>
+        <EntityType Name="WorkDay">
+          <Key>
+            <PropertyRef Name="workDayId" />
+          </Key>
+          <Property Name="workDayId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="startTime" Type="Int32" Nullable="false" />
+          <Property Name="endTime" Type="Int32" Nullable="false" />
+          <Property Name="workDayState" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="WorkAreas" Relationship="Self.FK_WorkArea_WorkDay" FromRole="WorkDay" ToRole="WorkArea" />
+        </EntityType>
+        <Association Name="FK_WorkArea_WorkDay">
+          <End Role="WorkDay" Type="Self.WorkDay" Multiplicity="1" />
+          <End Role="WorkArea" Type="Self.WorkArea" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WorkDay">
+              <PropertyRef Name="workDayId" />
+            </Principal>
+            <Dependent Role="WorkArea">
+              <PropertyRef Name="workDayId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="pgworkEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="WorkAreas" EntityType="Self.WorkArea" />
+          <EntitySet Name="WorkDays" EntityType="Self.WorkDay" />
+          <AssociationSet Name="FK_WorkArea_WorkDay" Association="Self.FK_WorkArea_WorkDay">
+            <End Role="WorkDay" EntitySet="WorkDays" />
+            <End Role="WorkArea" EntitySet="WorkAreas" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="pgworkModelStoreContainer" CdmEntityContainer="pgworkEntities">
+          <EntitySetMapping Name="WorkAreas">
+            <EntityTypeMapping TypeName="pgworkModel.WorkArea">
+              <MappingFragment StoreEntitySet="WorkArea">
+                <ScalarProperty Name="workAreaId" ColumnName="workAreaId" />
+                <ScalarProperty Name="workDayId" ColumnName="workDayId" />
+                <ScalarProperty Name="workAreaName" ColumnName="workAreaName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WorkDays">
+            <EntityTypeMapping TypeName="pgworkModel.WorkDay">
+              <MappingFragment StoreEntitySet="WorkDay">
+                <ScalarProperty Name="workDayId" ColumnName="workDayId" />
+                <ScalarProperty Name="startTime" ColumnName="startTime" />
+                <ScalarProperty Name="endTime" ColumnName="endTime" />
+                <ScalarProperty Name="workDayState" ColumnName="workDayState" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
