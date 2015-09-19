@@ -19,5 +19,5 @@ Release
 software/pg-web/pg-console/obj/**
 software/pg-web/pg-web/obj/**
 software/pg-web/pg-web/bin/**
-software/.vs/**
-software/packages/**
+software/pg-web/.vs/**
+software/pg-web/packages/**
