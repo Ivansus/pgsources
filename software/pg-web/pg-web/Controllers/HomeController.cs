@@ -6,11 +6,24 @@ using System.Web.Mvc;
 
 namespace pg_web.Controllers
 {
-	public class HomeController : Controller {
-		// GET: Default
-		public ActionResult Index() {
-			//ViewBag.Message = "Welcome message.";
-			ViewBag.TestMessage = "this is a test message";
+	public class HomeController : Controller
+	{
+		public ActionResult Index()
+		{
+			return View();
+		}
+
+		public ActionResult About()
+		{
+			ViewBag.Message = "Your application description page.";
+
+			return View();
+		}
+
+		public ActionResult Contact()
+		{
+			ViewBag.Message = "Your contact page.";
+
 			return View();
 		}
 	}

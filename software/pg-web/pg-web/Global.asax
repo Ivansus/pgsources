@@ -1,1 +1,1 @@
-﻿<%@ Application Codebehind="Global.asax.cs" Inherits="pg_web.Global" Language="C#" %>
+﻿<%@ Application Codebehind="Global.asax.cs" Inherits="pg_web.MvcApplication" Language="C#" %>
