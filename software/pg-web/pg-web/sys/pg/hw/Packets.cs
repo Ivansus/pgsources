@@ -179,14 +179,10 @@ namespace pg_web.sys.pg.hw
 			m_uDeviceId = _uDeviceId;
 
 			m_uBatteryVoltage = BitConverter.ToUInt16(_data, 9);
-			public byte m_btCharging;
-			public byte m_btLabelMinSignalLevel;
-			public byte m_btLabelObserveTimeoutSec;
-
-
-		m_uLabelId = BitConverter.ToUInt16(_data, 9);
-			m_btSignalPower = _data[11];
-			System.Diagnostics.Debug.Write("----WorkerDeviceLabelPacket --" + m_uDeviceId + ":" + m_uLabelId + ": " + m_btSignalPower + "\n");
+			m_btCharging = _data[11];
+			m_btLabelMinSignalLevel = _data[12];
+			m_btLabelObserveTimeoutSec = _data[13];
+			System.Diagnostics.Debug.Write("----WorkerDeviceInfoPacket --" + m_uDeviceId + ":" + m_uBatteryVoltage + ": " + m_btCharging + ": " + m_btLabelMinSignalLevel + ": " + m_btLabelObserveTimeoutSec + "\n");
 		}
 
 		public override void write(BinaryWriter _writer)
