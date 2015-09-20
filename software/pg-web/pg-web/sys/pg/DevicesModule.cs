@@ -20,6 +20,25 @@ namespace pg_web.sys.pg {
 			db = new pgworkDBEntities();
 		}
 
+		private Device _findOrCreate(ushort _uDeviceId) {
+			try {
+				return (
+					from m in db.Devices
+					where m.deviceData == _uDeviceId
+					select m
+				).First<Device>();
+			} catch (Exception) {
+				Device dev = db.Devices.Create();
+				dev.deviceData = _uDeviceId;
+				dev.deviceName = "Unknown device: 0x" + _uDeviceId.ToString("X4");
+				dev.deviceType = 1;
+				db.Devices.Add(dev);
+				db.SaveChanges();
+				System.Diagnostics.Debug.Write("\n New Device device id:" + _uDeviceId);
+				return dev;
+			}
+		}
+
 		private void _dataModule_WorkerDeviceLabelEvent(object sender, DataEventArgs e) {
 			WorkerDeviceLabelPacket packet = (WorkerDeviceLabelPacket)e.packet;
 			System.Diagnostics.Debug.Write("\n device label packet: device id:" + packet.m_uDeviceId + ", label id: " + packet.m_uLabelId);
