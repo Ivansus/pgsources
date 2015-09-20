@@ -42,4 +42,7 @@
 *.docx		-crlf
 *.png		-crlf
 *.jpg		-crlf
+*.mdf		-crlf
+*.ldf		-crlf
+*.diagram	-crlf
 oslib/utest/testcases/testdata/file_test_data/*.* -crlf
