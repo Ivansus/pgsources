@@ -14,8 +14,15 @@ namespace pg_web.Models
     
     public partial class Employer
     {
+        public Employer()
+        {
+            this.WorkEmployers = new HashSet<WorkEmployer>();
+        }
+    
         public int employerId { get; set; }
         public string employerName { get; set; }
         public int employerStatus { get; set; }
+    
+        public virtual ICollection<WorkEmployer> WorkEmployers { get; set; }
     }
 }

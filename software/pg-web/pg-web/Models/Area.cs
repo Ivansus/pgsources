@@ -18,6 +18,7 @@ namespace pg_web.Models
         {
             this.WorkAreas = new HashSet<WorkArea>();
             this.Labels = new HashSet<Label>();
+            this.LastAreaAccesses = new HashSet<LastAreaAccess>();
         }
     
         public int areaId { get; set; }
@@ -26,5 +27,6 @@ namespace pg_web.Models
     
         public virtual ICollection<WorkArea> WorkAreas { get; set; }
         public virtual ICollection<Label> Labels { get; set; }
+        public virtual ICollection<LastAreaAccess> LastAreaAccesses { get; set; }
     }
 }

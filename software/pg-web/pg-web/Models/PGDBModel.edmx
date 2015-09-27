@@ -39,7 +39,7 @@
           <Property Name="areaId" Type="int" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'C:\USERS\POTAP\DROPBOX\ДГ\SOFT\SRC\V15\PG-WIN\WEB\PG-WEB\PG-WEB\APP_DATA\PGWORK.MDF.dbo.LastAreaAccess' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'D:\PROJECTS\PGSOURCE\SRC\SOFTWARE\PG-WEB\PG-WEB\APP_DATA\PGWORK.MDF.dbo.LastAreaAccess' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="LastAreaAccess">
           <Key>
             <PropertyRef Name="areaId" />
@@ -100,7 +100,7 @@ warning 6002: The table/view 'C:\USERS\POTAP\DROPBOX\ДГ\SOFT\SRC\V15\PG-WIN\WE
           <Property Name="shiftState" Type="int" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'C:\USERS\POTAP\DROPBOX\ДГ\SOFT\SRC\V15\PG-WIN\WEB\PG-WEB\PG-WEB\APP_DATA\PGWORK.MDF.dbo.WorkShiftAccessEmployers' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'D:\PROJECTS\PGSOURCE\SRC\SOFTWARE\PG-WEB\PG-WEB\APP_DATA\PGWORK.MDF.dbo.WorkShiftAccessEmployers' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="WorkShiftAccessEmployers">
           <Key>
             <PropertyRef Name="workDayId" />
@@ -112,7 +112,7 @@ warning 6002: The table/view 'C:\USERS\POTAP\DROPBOX\ДГ\SOFT\SRC\V15\PG-WIN\WE
           <Property Name="workEmployersId" Type="int" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'C:\USERS\POTAP\DROPBOX\ДГ\SOFT\SRC\V15\PG-WIN\WEB\PG-WEB\PG-WEB\APP_DATA\PGWORK.MDF.dbo.WorkShiftNotificationEmployers' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'D:\PROJECTS\PGSOURCE\SRC\SOFTWARE\PG-WEB\PG-WEB\APP_DATA\PGWORK.MDF.dbo.WorkShiftNotificationEmployers' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="WorkShiftNotificationEmployers">
           <Key>
             <PropertyRef Name="workDayId" />
@@ -132,6 +132,30 @@ warning 6002: The table/view 'C:\USERS\POTAP\DROPBOX\ДГ\SOFT\SRC\V15\PG-WIN\WE
             </Principal>
             <Dependent Role="Label">
               <PropertyRef Name="areaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LastAreaAccess_Area">
+          <End Role="Area" Type="Self.Area" Multiplicity="1" />
+          <End Role="LastAreaAccess" Type="Self.LastAreaAccess" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Area">
+              <PropertyRef Name="areaId" />
+            </Principal>
+            <Dependent Role="LastAreaAccess">
+              <PropertyRef Name="areaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LastAreaAccess_Device">
+          <End Role="Device" Type="Self.Device" Multiplicity="1" />
+          <End Role="LastAreaAccess" Type="Self.LastAreaAccess" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Device">
+              <PropertyRef Name="deviceId" />
+            </Principal>
+            <Dependent Role="LastAreaAccess">
+              <PropertyRef Name="deviceId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -155,6 +179,42 @@ warning 6002: The table/view 'C:\USERS\POTAP\DROPBOX\ДГ\SOFT\SRC\V15\PG-WIN\WE
               <PropertyRef Name="workDayId" />
             </Principal>
             <Dependent Role="WorkArea">
+              <PropertyRef Name="workDayId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WorkEmployer_Device">
+          <End Role="Device" Type="Self.Device" Multiplicity="1" />
+          <End Role="WorkEmployers" Type="Self.WorkEmployers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Device">
+              <PropertyRef Name="deviceId" />
+            </Principal>
+            <Dependent Role="WorkEmployers">
+              <PropertyRef Name="deviceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WorkEmployers_Employers">
+          <End Role="Employer" Type="Self.Employer" Multiplicity="1" />
+          <End Role="WorkEmployers" Type="Self.WorkEmployers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employer">
+              <PropertyRef Name="employerId" />
+            </Principal>
+            <Dependent Role="WorkEmployers">
+              <PropertyRef Name="employerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WorkEmployers_WorkDay">
+          <End Role="WorkDay" Type="Self.WorkDay" Multiplicity="1" />
+          <End Role="WorkEmployers" Type="Self.WorkEmployers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WorkDay">
+              <PropertyRef Name="workDayId" />
+            </Principal>
+            <Dependent Role="WorkEmployers">
               <PropertyRef Name="workDayId" />
             </Dependent>
           </ReferentialConstraint>
@@ -206,6 +266,14 @@ warning 6002: The table/view 'C:\USERS\POTAP\DROPBOX\ДГ\SOFT\SRC\V15\PG-WIN\WE
             <End Role="Area" EntitySet="Area" />
             <End Role="Label" EntitySet="Label" />
           </AssociationSet>
+          <AssociationSet Name="FK_LastAreaAccess_Area" Association="Self.FK_LastAreaAccess_Area">
+            <End Role="Area" EntitySet="Area" />
+            <End Role="LastAreaAccess" EntitySet="LastAreaAccess" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LastAreaAccess_Device" Association="Self.FK_LastAreaAccess_Device">
+            <End Role="Device" EntitySet="Device" />
+            <End Role="LastAreaAccess" EntitySet="LastAreaAccess" />
+          </AssociationSet>
           <AssociationSet Name="FK_WorkArea_Area" Association="Self.FK_WorkArea_Area">
             <End Role="Area" EntitySet="Area" />
             <End Role="WorkArea" EntitySet="WorkArea" />
@@ -213,6 +281,18 @@ warning 6002: The table/view 'C:\USERS\POTAP\DROPBOX\ДГ\SOFT\SRC\V15\PG-WIN\WE
           <AssociationSet Name="FK_WorkArea_WorkDay" Association="Self.FK_WorkArea_WorkDay">
             <End Role="WorkDay" EntitySet="WorkDay" />
             <End Role="WorkArea" EntitySet="WorkArea" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WorkEmployer_Device" Association="Self.FK_WorkEmployer_Device">
+            <End Role="Device" EntitySet="Device" />
+            <End Role="WorkEmployers" EntitySet="WorkEmployers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WorkEmployers_Employers" Association="Self.FK_WorkEmployers_Employers">
+            <End Role="Employer" EntitySet="Employer" />
+            <End Role="WorkEmployers" EntitySet="WorkEmployers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WorkEmployers_WorkDay" Association="Self.FK_WorkEmployers_WorkDay">
+            <End Role="WorkDay" EntitySet="WorkDay" />
+            <End Role="WorkEmployers" EntitySet="WorkEmployers" />
           </AssociationSet>
           <AssociationSet Name="FK_WorkShift_WorkArea" Association="Self.FK_WorkShift_WorkArea">
             <End Role="WorkArea" EntitySet="WorkArea" />
@@ -232,6 +312,7 @@ warning 6002: The table/view 'C:\USERS\POTAP\DROPBOX\ДГ\SOFT\SRC\V15\PG-WIN\WE
           <Property Name="outline" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="WorkAreas" Relationship="Self.FK_WorkArea_Area" FromRole="Area" ToRole="WorkArea" />
           <NavigationProperty Name="Labels" Relationship="pgworkModel.FK_Label_Area" FromRole="Area" ToRole="Label" />
+          <NavigationProperty Name="LastAreaAccesses" Relationship="pgworkModel.FK_LastAreaAccess_Area" FromRole="Area" ToRole="LastAreaAccess" />
         </EntityType>
         <EntityType Name="WorkArea">
           <Key>
@@ -254,6 +335,7 @@ warning 6002: The table/view 'C:\USERS\POTAP\DROPBOX\ДГ\SOFT\SRC\V15\PG-WIN\WE
           <Property Name="endTime" Type="Int32" Nullable="false" />
           <Property Name="workDayState" Type="Int32" Nullable="false" />
           <NavigationProperty Name="WorkAreas" Relationship="Self.FK_WorkArea_WorkDay" FromRole="WorkDay" ToRole="WorkArea" />
+          <NavigationProperty Name="WorkEmployers" Relationship="pgworkModel.FK_WorkEmployers_WorkDay" FromRole="WorkDay" ToRole="WorkEmployer" />
         </EntityType>
         <Association Name="FK_WorkArea_Area">
           <End Role="Area" Type="Self.Area" Multiplicity="1" />
@@ -308,6 +390,26 @@ warning 6002: The table/view 'C:\USERS\POTAP\DROPBOX\ДГ\SOFT\SRC\V15\PG-WIN\WE
             <End Role="WorkArea" EntitySet="WorkAreas" />
             <End Role="WorkShift" EntitySet="WorkShifts" />
           </AssociationSet>
+          <AssociationSet Name="FK_LastAreaAccess_Area" Association="pgworkModel.FK_LastAreaAccess_Area">
+            <End Role="Area" EntitySet="Areas" />
+            <End Role="LastAreaAccess" EntitySet="LastAreaAccesses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LastAreaAccess_Device" Association="pgworkModel.FK_LastAreaAccess_Device">
+            <End Role="Device" EntitySet="Devices" />
+            <End Role="LastAreaAccess" EntitySet="LastAreaAccesses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WorkEmployer_Device" Association="pgworkModel.FK_WorkEmployer_Device">
+            <End Role="Device" EntitySet="Devices" />
+            <End Role="WorkEmployer" EntitySet="WorkEmployers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WorkEmployers_Employers" Association="pgworkModel.FK_WorkEmployers_Employers">
+            <End Role="Employer" EntitySet="Employers" />
+            <End Role="WorkEmployer" EntitySet="WorkEmployers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WorkEmployers_WorkDay" Association="pgworkModel.FK_WorkEmployers_WorkDay">
+            <End Role="WorkDay" EntitySet="WorkDays" />
+            <End Role="WorkEmployer" EntitySet="WorkEmployers" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Device">
           <Key>
@@ -317,6 +419,8 @@ warning 6002: The table/view 'C:\USERS\POTAP\DROPBOX\ДГ\SOFT\SRC\V15\PG-WIN\WE
           <Property Name="deviceType" Type="Int32" Nullable="false" />
           <Property Name="deviceName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="deviceData" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="LastAreaAccesses" Relationship="pgworkModel.FK_LastAreaAccess_Device" FromRole="Device" ToRole="LastAreaAccess" />
+          <NavigationProperty Name="WorkEmployers" Relationship="pgworkModel.FK_WorkEmployer_Device" FromRole="Device" ToRole="WorkEmployer" />
         </EntityType>
         <EntityType Name="Employer">
           <Key>
@@ -325,6 +429,7 @@ warning 6002: The table/view 'C:\USERS\POTAP\DROPBOX\ДГ\SOFT\SRC\V15\PG-WIN\WE
           <Property Name="employerId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="employerName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="employerStatus" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="WorkEmployers" Relationship="pgworkModel.FK_WorkEmployers_Employers" FromRole="Employer" ToRole="WorkEmployer" />
         </EntityType>
         <EntityType Name="Label">
           <Key>
@@ -351,6 +456,9 @@ warning 6002: The table/view 'C:\USERS\POTAP\DROPBOX\ДГ\SOFT\SRC\V15\PG-WIN\WE
           <Property Name="employerId" Type="Int32" Nullable="false" />
           <Property Name="deviceId" Type="Int32" Nullable="false" />
           <Property Name="workState" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Device" Relationship="pgworkModel.FK_WorkEmployer_Device" FromRole="WorkEmployer" ToRole="Device" />
+          <NavigationProperty Name="Employer" Relationship="pgworkModel.FK_WorkEmployers_Employers" FromRole="WorkEmployer" ToRole="Employer" />
+          <NavigationProperty Name="WorkDay" Relationship="pgworkModel.FK_WorkEmployers_WorkDay" FromRole="WorkEmployer" ToRole="WorkDay" />
         </EntityType>
         <EntityType Name="WorkShift">
           <Key>
@@ -376,6 +484,8 @@ warning 6002: The table/view 'C:\USERS\POTAP\DROPBOX\ДГ\SOFT\SRC\V15\PG-WIN\WE
           <Property Name="areaId" Type="Int32" Nullable="false" />
           <Property Name="deviceId" Type="Int32" Nullable="false" />
           <Property Name="accessTime" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Area" Relationship="pgworkModel.FK_LastAreaAccess_Area" FromRole="LastAreaAccess" ToRole="Area" />
+          <NavigationProperty Name="Device" Relationship="pgworkModel.FK_LastAreaAccess_Device" FromRole="LastAreaAccess" ToRole="Device" />
         </EntityType>
         <EntityType Name="WorkShiftAccessEmployer">
           <Key>
@@ -418,6 +528,66 @@ warning 6002: The table/view 'C:\USERS\POTAP\DROPBOX\ДГ\SOFT\SRC\V15\PG-WIN\WE
             </Principal>
             <Dependent Role="WorkShift">
               <PropertyRef Name="workAreaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LastAreaAccess_Area">
+          <End Type="pgworkModel.Area" Role="Area" Multiplicity="1" />
+          <End Type="pgworkModel.LastAreaAccess" Role="LastAreaAccess" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Area">
+              <PropertyRef Name="areaId" />
+            </Principal>
+            <Dependent Role="LastAreaAccess">
+              <PropertyRef Name="areaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LastAreaAccess_Device">
+          <End Type="pgworkModel.Device" Role="Device" Multiplicity="1" />
+          <End Type="pgworkModel.LastAreaAccess" Role="LastAreaAccess" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Device">
+              <PropertyRef Name="deviceId" />
+            </Principal>
+            <Dependent Role="LastAreaAccess">
+              <PropertyRef Name="deviceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WorkEmployer_Device">
+          <End Type="pgworkModel.Device" Role="Device" Multiplicity="1" />
+          <End Type="pgworkModel.WorkEmployer" Role="WorkEmployer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Device">
+              <PropertyRef Name="deviceId" />
+            </Principal>
+            <Dependent Role="WorkEmployer">
+              <PropertyRef Name="deviceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WorkEmployers_Employers">
+          <End Type="pgworkModel.Employer" Role="Employer" Multiplicity="1" />
+          <End Type="pgworkModel.WorkEmployer" Role="WorkEmployer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employer">
+              <PropertyRef Name="employerId" />
+            </Principal>
+            <Dependent Role="WorkEmployer">
+              <PropertyRef Name="employerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WorkEmployers_WorkDay">
+          <End Type="pgworkModel.WorkDay" Role="WorkDay" Multiplicity="1" />
+          <End Type="pgworkModel.WorkEmployer" Role="WorkEmployer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WorkDay">
+              <PropertyRef Name="workDayId" />
+            </Principal>
+            <Dependent Role="WorkEmployer">
+              <PropertyRef Name="workDayId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>

@@ -19,5 +19,9 @@ namespace pg_web.Models
         public int employerId { get; set; }
         public int deviceId { get; set; }
         public int workState { get; set; }
+    
+        public virtual Device Device { get; set; }
+        public virtual Employer Employer { get; set; }
+        public virtual WorkDay WorkDay { get; set; }
     }
 }

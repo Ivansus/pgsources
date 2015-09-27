@@ -14,9 +14,18 @@ namespace pg_web.Models
     
     public partial class Device
     {
+        public Device()
+        {
+            this.LastAreaAccesses = new HashSet<LastAreaAccess>();
+            this.WorkEmployers = new HashSet<WorkEmployer>();
+        }
+    
         public int deviceId { get; set; }
         public int deviceType { get; set; }
         public string deviceName { get; set; }
         public int deviceData { get; set; }
+    
+        public virtual ICollection<LastAreaAccess> LastAreaAccesses { get; set; }
+        public virtual ICollection<WorkEmployer> WorkEmployers { get; set; }
     }
 }

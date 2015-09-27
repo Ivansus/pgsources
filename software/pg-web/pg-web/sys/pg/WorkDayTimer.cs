@@ -96,7 +96,7 @@ namespace pg_web.sys.pg
 
 			Int32 unixTimestamp = (Int32)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds;
 			m_currentWorkDay = _day;
-			m_currentWorkDay.workDayState = (int)WorkDay.State.stActive;
+			m_currentWorkDay.workDayState = 1; // (int)WorkDay.State.stActive; TODO: restore state enum
 			_riseWorkDayStart(m_currentWorkDay);
 			m_stopTimer.Interval = m_currentWorkDay.startTime - unixTimestamp;
 			m_stopTimer.Enabled = true;
@@ -115,7 +115,7 @@ namespace pg_web.sys.pg
 
 			m_stopTimer.Enabled = false;
 
-			m_currentWorkDay.workDayState = (int)WorkDay.State.stFinished;
+			m_currentWorkDay.workDayState = 2; // (int)WorkDay.State.stFinished; todo: restore state enum
 			_riseWorkDayEnd(m_currentWorkDay);
 			m_currentWorkDay = null;
 

@@ -14,19 +14,18 @@ namespace pg_web.Models
     
     public partial class WorkDay
     {
-		public enum State:long {
-			stFinished = 0,
-			stActive = 1,
-			stNext = 2,
-		}
-		public WorkDay()
-		{
-			this.WorkAreas = new HashSet<WorkArea>();
-		}
-		public int workDayId { get; set; }
-		public int startTime { get; set; }
-		public int endTime { get; set; }
-		public int workDayState { get; set; }
-		public virtual ICollection<WorkArea> WorkAreas { get; set; }
-	}
+        public WorkDay()
+        {
+            this.WorkAreas = new HashSet<WorkArea>();
+            this.WorkEmployers = new HashSet<WorkEmployer>();
+        }
+    
+        public int workDayId { get; set; }
+        public int startTime { get; set; }
+        public int endTime { get; set; }
+        public int workDayState { get; set; }
+    
+        public virtual ICollection<WorkArea> WorkAreas { get; set; }
+        public virtual ICollection<WorkEmployer> WorkEmployers { get; set; }
+    }
 }

@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'C:\Users\potap\Dropbox\ДГ\Soft\src\v15\PG-win\web\pg-web\pg-web\Models\PGDBModel.edmx'. 
+﻿// T4 code generation is enabled for model 'D:\Projects\pgsource\src\software\pg-web\pg-web\Models\PGDBModel.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.

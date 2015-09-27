@@ -21,6 +21,11 @@
         <EntityTypeShape EntityType="pgworkModel.WorkShiftNotificationEmployer" Width="1.5" PointX="8.75" PointY="6.75" />
         <AssociationConnector Association="pgworkModel.FK_Label_Area" />
         <AssociationConnector Association="pgworkModel.FK_WorkShift_WorkArea" />
+        <AssociationConnector Association="pgworkModel.FK_LastAreaAccess_Area" />
+        <AssociationConnector Association="pgworkModel.FK_LastAreaAccess_Device" />
+        <AssociationConnector Association="pgworkModel.FK_WorkEmployer_Device" />
+        <AssociationConnector Association="pgworkModel.FK_WorkEmployers_Employers" />
+        <AssociationConnector Association="pgworkModel.FK_WorkEmployers_WorkDay" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

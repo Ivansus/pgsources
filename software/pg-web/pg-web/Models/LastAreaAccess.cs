@@ -17,5 +17,8 @@ namespace pg_web.Models
         public int areaId { get; set; }
         public int deviceId { get; set; }
         public int accessTime { get; set; }
+    
+        public virtual Area Area { get; set; }
+        public virtual Device Device { get; set; }
     }
 }
