@@ -429,7 +429,7 @@ warning 6002: The table/view 'D:\PROJECTS\PGSOURCE\SRC\SOFTWARE\PG-WEB\PG-WEB\AP
           <Property Name="workDayId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="startTime" Type="Int32" Nullable="false" />
           <Property Name="endTime" Type="Int32" Nullable="false" />
-          <Property Name="workDayState" Type="Int32" Nullable="false" />
+          <Property Name="workDayState" Type="pgworkModel.WorkDayState" Nullable="false" />
           <NavigationProperty Name="WorkAreas" Relationship="Self.FK_WorkArea_WorkDay" FromRole="WorkDay" ToRole="WorkArea" />
           <NavigationProperty Name="WorkEmployers" Relationship="pgworkModel.FK_WorkEmployers_WorkDay" FromRole="WorkDay" ToRole="WorkEmployer" />
           <NavigationProperty Name="WorkShiftAccessEmployers" Relationship="pgworkModel.FK_WorkShiftAccessEmployers_WorkDay" FromRole="WorkDay" ToRole="WorkShiftAccessEmployer" />
@@ -795,6 +795,11 @@ warning 6002: The table/view 'D:\PROJECTS\PGSOURCE\SRC\SOFTWARE\PG-WEB\PG-WEB\AP
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EnumType Name="WorkDayState">
+          <Member Name="wdstNotStarted" Value="0" />
+          <Member Name="wdstInProgress" Value="1" />
+          <Member Name="wdstFinished" Value="2" />
+        </EnumType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->

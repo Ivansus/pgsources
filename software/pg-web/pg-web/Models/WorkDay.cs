@@ -25,7 +25,7 @@ namespace pg_web.Models
         public int workDayId { get; set; }
         public int startTime { get; set; }
         public int endTime { get; set; }
-        public int workDayState { get; set; }
+        public WorkDayState workDayState { get; set; }
     
         public virtual ICollection<WorkArea> WorkAreas { get; set; }
         public virtual ICollection<WorkEmployer> WorkEmployers { get; set; }

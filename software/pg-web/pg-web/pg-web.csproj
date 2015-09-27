@@ -19,6 +19,7 @@
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -204,6 +205,9 @@
       <DependentUpon>PGDBModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\WorkDay.cs">
+      <DependentUpon>PGDBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\WorkDayState.cs">
       <DependentUpon>PGDBModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\WorkEmployer.cs">
