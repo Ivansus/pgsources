@@ -231,6 +231,42 @@ warning 6002: The table/view 'D:\PROJECTS\PGSOURCE\SRC\SOFTWARE\PG-WEB\PG-WEB\AP
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_WorkShiftAccessEmployers_WorkDay">
+          <End Role="WorkDay" Type="Self.WorkDay" Multiplicity="1" />
+          <End Role="WorkShiftAccessEmployers" Type="Self.WorkShiftAccessEmployers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WorkDay">
+              <PropertyRef Name="workDayId" />
+            </Principal>
+            <Dependent Role="WorkShiftAccessEmployers">
+              <PropertyRef Name="workDayId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WorkShiftAccessEmployers_WorkEmployer">
+          <End Role="WorkEmployers" Type="Self.WorkEmployers" Multiplicity="1" />
+          <End Role="WorkShiftAccessEmployers" Type="Self.WorkShiftAccessEmployers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WorkEmployers">
+              <PropertyRef Name="workEmployerId" />
+            </Principal>
+            <Dependent Role="WorkShiftAccessEmployers">
+              <PropertyRef Name="workEmployersId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WorkShiftAccessEmployers_WorkShift">
+          <End Role="WorkShift" Type="Self.WorkShift" Multiplicity="1" />
+          <End Role="WorkShiftAccessEmployers" Type="Self.WorkShiftAccessEmployers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WorkShift">
+              <PropertyRef Name="workShiftId" />
+            </Principal>
+            <Dependent Role="WorkShiftAccessEmployers">
+              <PropertyRef Name="workShiftId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="pgworkModelStoreContainer">
           <EntitySet Name="Area" EntityType="Self.Area" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Device" EntityType="Self.Device" Schema="dbo" store:Type="Tables" />
@@ -298,6 +334,18 @@ warning 6002: The table/view 'D:\PROJECTS\PGSOURCE\SRC\SOFTWARE\PG-WEB\PG-WEB\AP
             <End Role="WorkArea" EntitySet="WorkArea" />
             <End Role="WorkShift" EntitySet="WorkShift" />
           </AssociationSet>
+          <AssociationSet Name="FK_WorkShiftAccessEmployers_WorkDay" Association="Self.FK_WorkShiftAccessEmployers_WorkDay">
+            <End Role="WorkDay" EntitySet="WorkDay" />
+            <End Role="WorkShiftAccessEmployers" EntitySet="WorkShiftAccessEmployers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WorkShiftAccessEmployers_WorkEmployer" Association="Self.FK_WorkShiftAccessEmployers_WorkEmployer">
+            <End Role="WorkEmployers" EntitySet="WorkEmployers" />
+            <End Role="WorkShiftAccessEmployers" EntitySet="WorkShiftAccessEmployers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WorkShiftAccessEmployers_WorkShift" Association="Self.FK_WorkShiftAccessEmployers_WorkShift">
+            <End Role="WorkShift" EntitySet="WorkShift" />
+            <End Role="WorkShiftAccessEmployers" EntitySet="WorkShiftAccessEmployers" />
+          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -336,6 +384,7 @@ warning 6002: The table/view 'D:\PROJECTS\PGSOURCE\SRC\SOFTWARE\PG-WEB\PG-WEB\AP
           <Property Name="workDayState" Type="Int32" Nullable="false" />
           <NavigationProperty Name="WorkAreas" Relationship="Self.FK_WorkArea_WorkDay" FromRole="WorkDay" ToRole="WorkArea" />
           <NavigationProperty Name="WorkEmployers" Relationship="pgworkModel.FK_WorkEmployers_WorkDay" FromRole="WorkDay" ToRole="WorkEmployer" />
+          <NavigationProperty Name="WorkShiftAccessEmployers" Relationship="pgworkModel.FK_WorkShiftAccessEmployers_WorkDay" FromRole="WorkDay" ToRole="WorkShiftAccessEmployer" />
         </EntityType>
         <Association Name="FK_WorkArea_Area">
           <End Role="Area" Type="Self.Area" Multiplicity="1" />
@@ -410,6 +459,18 @@ warning 6002: The table/view 'D:\PROJECTS\PGSOURCE\SRC\SOFTWARE\PG-WEB\PG-WEB\AP
             <End Role="WorkDay" EntitySet="WorkDays" />
             <End Role="WorkEmployer" EntitySet="WorkEmployers" />
           </AssociationSet>
+          <AssociationSet Name="FK_WorkShiftAccessEmployers_WorkDay" Association="pgworkModel.FK_WorkShiftAccessEmployers_WorkDay">
+            <End Role="WorkDay" EntitySet="WorkDays" />
+            <End Role="WorkShiftAccessEmployer" EntitySet="WorkShiftAccessEmployers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WorkShiftAccessEmployers_WorkEmployer" Association="pgworkModel.FK_WorkShiftAccessEmployers_WorkEmployer">
+            <End Role="WorkEmployer" EntitySet="WorkEmployers" />
+            <End Role="WorkShiftAccessEmployer" EntitySet="WorkShiftAccessEmployers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WorkShiftAccessEmployers_WorkShift" Association="pgworkModel.FK_WorkShiftAccessEmployers_WorkShift">
+            <End Role="WorkShift" EntitySet="WorkShifts" />
+            <End Role="WorkShiftAccessEmployer" EntitySet="WorkShiftAccessEmployers" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Device">
           <Key>
@@ -459,6 +520,7 @@ warning 6002: The table/view 'D:\PROJECTS\PGSOURCE\SRC\SOFTWARE\PG-WEB\PG-WEB\AP
           <NavigationProperty Name="Device" Relationship="pgworkModel.FK_WorkEmployer_Device" FromRole="WorkEmployer" ToRole="Device" />
           <NavigationProperty Name="Employer" Relationship="pgworkModel.FK_WorkEmployers_Employers" FromRole="WorkEmployer" ToRole="Employer" />
           <NavigationProperty Name="WorkDay" Relationship="pgworkModel.FK_WorkEmployers_WorkDay" FromRole="WorkEmployer" ToRole="WorkDay" />
+          <NavigationProperty Name="WorkShiftAccessEmployers" Relationship="pgworkModel.FK_WorkShiftAccessEmployers_WorkEmployer" FromRole="WorkEmployer" ToRole="WorkShiftAccessEmployer" />
         </EntityType>
         <EntityType Name="WorkShift">
           <Key>
@@ -474,6 +536,7 @@ warning 6002: The table/view 'D:\PROJECTS\PGSOURCE\SRC\SOFTWARE\PG-WEB\PG-WEB\AP
           <Property Name="alarmTimerDelay" Type="Int32" Nullable="false" />
           <Property Name="shiftState" Type="Int32" Nullable="false" />
           <NavigationProperty Name="WorkArea" Relationship="pgworkModel.FK_WorkShift_WorkArea" FromRole="WorkShift" ToRole="WorkArea" />
+          <NavigationProperty Name="WorkShiftAccessEmployers" Relationship="pgworkModel.FK_WorkShiftAccessEmployers_WorkShift" FromRole="WorkShift" ToRole="WorkShiftAccessEmployer" />
         </EntityType>
         <EntityType Name="LastAreaAccess">
           <Key>
@@ -496,6 +559,9 @@ warning 6002: The table/view 'D:\PROJECTS\PGSOURCE\SRC\SOFTWARE\PG-WEB\PG-WEB\AP
           <Property Name="workDayId" Type="Int32" Nullable="false" />
           <Property Name="workShiftId" Type="Int32" Nullable="false" />
           <Property Name="workEmployersId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="WorkDay" Relationship="pgworkModel.FK_WorkShiftAccessEmployers_WorkDay" FromRole="WorkShiftAccessEmployer" ToRole="WorkDay" />
+          <NavigationProperty Name="WorkEmployer" Relationship="pgworkModel.FK_WorkShiftAccessEmployers_WorkEmployer" FromRole="WorkShiftAccessEmployer" ToRole="WorkEmployer" />
+          <NavigationProperty Name="WorkShift" Relationship="pgworkModel.FK_WorkShiftAccessEmployers_WorkShift" FromRole="WorkShiftAccessEmployer" ToRole="WorkShift" />
         </EntityType>
         <EntityType Name="WorkShiftNotificationEmployer">
           <Key>
@@ -588,6 +654,42 @@ warning 6002: The table/view 'D:\PROJECTS\PGSOURCE\SRC\SOFTWARE\PG-WEB\PG-WEB\AP
             </Principal>
             <Dependent Role="WorkEmployer">
               <PropertyRef Name="workDayId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WorkShiftAccessEmployers_WorkDay">
+          <End Type="pgworkModel.WorkDay" Role="WorkDay" Multiplicity="1" />
+          <End Type="pgworkModel.WorkShiftAccessEmployer" Role="WorkShiftAccessEmployer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WorkDay">
+              <PropertyRef Name="workDayId" />
+            </Principal>
+            <Dependent Role="WorkShiftAccessEmployer">
+              <PropertyRef Name="workDayId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WorkShiftAccessEmployers_WorkEmployer">
+          <End Type="pgworkModel.WorkEmployer" Role="WorkEmployer" Multiplicity="1" />
+          <End Type="pgworkModel.WorkShiftAccessEmployer" Role="WorkShiftAccessEmployer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WorkEmployer">
+              <PropertyRef Name="workEmployerId" />
+            </Principal>
+            <Dependent Role="WorkShiftAccessEmployer">
+              <PropertyRef Name="workEmployersId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WorkShiftAccessEmployers_WorkShift">
+          <End Type="pgworkModel.WorkShift" Role="WorkShift" Multiplicity="1" />
+          <End Type="pgworkModel.WorkShiftAccessEmployer" Role="WorkShiftAccessEmployer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WorkShift">
+              <PropertyRef Name="workShiftId" />
+            </Principal>
+            <Dependent Role="WorkShiftAccessEmployer">
+              <PropertyRef Name="workShiftId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>

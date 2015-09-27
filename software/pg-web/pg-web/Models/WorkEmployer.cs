@@ -14,6 +14,11 @@ namespace pg_web.Models
     
     public partial class WorkEmployer
     {
+        public WorkEmployer()
+        {
+            this.WorkShiftAccessEmployers = new HashSet<WorkShiftAccessEmployer>();
+        }
+    
         public int workEmployerId { get; set; }
         public int workDayId { get; set; }
         public int employerId { get; set; }
@@ -23,5 +28,6 @@ namespace pg_web.Models
         public virtual Device Device { get; set; }
         public virtual Employer Employer { get; set; }
         public virtual WorkDay WorkDay { get; set; }
+        public virtual ICollection<WorkShiftAccessEmployer> WorkShiftAccessEmployers { get; set; }
     }
 }

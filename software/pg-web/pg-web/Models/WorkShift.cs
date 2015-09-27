@@ -14,6 +14,11 @@ namespace pg_web.Models
     
     public partial class WorkShift
     {
+        public WorkShift()
+        {
+            this.WorkShiftAccessEmployers = new HashSet<WorkShiftAccessEmployer>();
+        }
+    
         public int workShiftId { get; set; }
         public int workDayId { get; set; }
         public int workAreaId { get; set; }
@@ -25,5 +30,6 @@ namespace pg_web.Models
         public int shiftState { get; set; }
     
         public virtual WorkArea WorkArea { get; set; }
+        public virtual ICollection<WorkShiftAccessEmployer> WorkShiftAccessEmployers { get; set; }
     }
 }

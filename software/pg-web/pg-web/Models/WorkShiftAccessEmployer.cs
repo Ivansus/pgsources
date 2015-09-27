@@ -17,5 +17,9 @@ namespace pg_web.Models
         public int workDayId { get; set; }
         public int workShiftId { get; set; }
         public int workEmployersId { get; set; }
+    
+        public virtual WorkDay WorkDay { get; set; }
+        public virtual WorkEmployer WorkEmployer { get; set; }
+        public virtual WorkShift WorkShift { get; set; }
     }
 }
