@@ -19,6 +19,7 @@ namespace pg_web.Models
             this.WorkAreas = new HashSet<WorkArea>();
             this.WorkEmployers = new HashSet<WorkEmployer>();
             this.WorkShiftAccessEmployers = new HashSet<WorkShiftAccessEmployer>();
+            this.WorkShiftNotificationEmployers = new HashSet<WorkShiftNotificationEmployer>();
         }
     
         public int workDayId { get; set; }
@@ -29,5 +30,6 @@ namespace pg_web.Models
         public virtual ICollection<WorkArea> WorkAreas { get; set; }
         public virtual ICollection<WorkEmployer> WorkEmployers { get; set; }
         public virtual ICollection<WorkShiftAccessEmployer> WorkShiftAccessEmployers { get; set; }
+        public virtual ICollection<WorkShiftNotificationEmployer> WorkShiftNotificationEmployers { get; set; }
     }
 }

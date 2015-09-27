@@ -29,6 +29,9 @@
         <AssociationConnector Association="pgworkModel.FK_WorkShiftAccessEmployers_WorkDay" />
         <AssociationConnector Association="pgworkModel.FK_WorkShiftAccessEmployers_WorkEmployer" />
         <AssociationConnector Association="pgworkModel.FK_WorkShiftAccessEmployers_WorkShift" />
+        <AssociationConnector Association="pgworkModel.FK_WorkShiftNotificationEmployers_WorkDay" />
+        <AssociationConnector Association="pgworkModel.FK_WorkShiftNotificationEmployers_WorkEmploers" />
+        <AssociationConnector Association="pgworkModel.FK_WorkShiftNotificationEmployers_WorkShift" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
