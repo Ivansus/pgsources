@@ -15,6 +15,7 @@ namespace pg_web.sys.pg
 			registerService(WorkDayTimer.SERVICE_NAME, new WorkDayTimer());
 			registerService(DevicesModule.SERVICE_NAME, new DevicesModule());
 			registerService(HWDataModule.SERVICE_NAME, new HWDataModule());
+			registerService(LabelModule.SERVICE_NAME, new LabelModule());
 
 			foreach (KeyValuePair<String, IModule> pair in m_services) {
 				pair.Value.init();

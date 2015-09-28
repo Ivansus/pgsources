@@ -6,21 +6,53 @@ using System.Linq;
 using System.Web;
 
 namespace pg_web.sys.pg {
+
+	public class DeviceLabelEvent : EventArgs {
+		public DeviceLabelEvent(Device _device, Label _label, int _nSignalPower) {
+			device = _device;
+			label = _label;
+			signal = _nSignalPower;
+		}
+		public Device device { get; }
+		public Label label { get; }
+		public int signal { get; }
+	}
+
 	public class DevicesModule : IModule {
 		public const String SERVICE_NAME = "Devices";
 
+		public event EventHandler<DeviceLabelEvent> DeviceLabelEventHandler;
+
 		private HWDataModule m_dataModule;
+		private LabelModule m_labelModule;
 		private int m_nIndex = 0;
 		private pgworkDBEntities db;
 
 		public void init () {
 			m_dataModule = (HWDataModule)Core.Instance.getService(HWDataModule.SERVICE_NAME);
+			m_labelModule = (LabelModule)Core.Instance.getService(LabelModule.SERVICE_NAME);
 			_startOpenTimer();
 			m_dataModule.WorkerDeviceLabelEvent += _dataModule_WorkerDeviceLabelEvent;
 			db = new pgworkDBEntities();
 		}
 
-		private Device _findOrCreate(ushort _uDeviceId) {
+		public Device findDevice(ushort _uDeviceId)
+		{
+			try
+			{
+				return (
+					from m in db.Devices
+					where m.deviceData == _uDeviceId
+					select m
+				).First<Device>();
+			}
+			catch (Exception)
+			{
+				return null;
+			}
+		}
+
+		public Device findOrCreateDevice(ushort _uDeviceId) {
 			try {
 				return (
 					from m in db.Devices
@@ -42,22 +74,9 @@ namespace pg_web.sys.pg {
 		private void _dataModule_WorkerDeviceLabelEvent(object sender, DataEventArgs e) {
 			WorkerDeviceLabelPacket packet = (WorkerDeviceLabelPacket)e.packet;
 			System.Diagnostics.Debug.Write("\n device label packet: device id:" + packet.m_uDeviceId + ", label id: " + packet.m_uLabelId);
-			try {
-				Device dev = (
-					from m in db.Devices
-					where m.deviceData == packet.m_uDeviceId
-					select m
-				).First<Device>();
-				System.Diagnostics.Debug.Write("\n device already exist device id:" + packet.m_uDeviceId);
-			} catch (Exception) {
-				Device dev = db.Devices.Create();
-				dev.deviceData = packet.m_uDeviceId;
-				dev.deviceName = "name";
-				dev.deviceType = 1;
-				db.Devices.Add(dev);
-				db.SaveChanges();
-				System.Diagnostics.Debug.Write("\n New Device device id:" + packet.m_uDeviceId);
-			}
+			Device dev = findOrCreateDevice(packet.m_uDeviceId);
+			Label label = m_labelModule.findOrCreateLabel(packet.m_uLabelId);
+			DeviceLabelEventHandler(this, new DeviceLabelEvent(dev, label, packet.m_btSignalPower));
 		}
 
 		private System.Timers.Timer m_openTimer;
