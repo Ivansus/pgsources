@@ -25,15 +25,17 @@ namespace pg_web.sys.pg {
 
 		private HWDataModule m_dataModule;
 		private LabelModule m_labelModule;
-		private int m_nIndex = 0;
 		private pgworkDBEntities db;
 
 		public void init () {
 			m_dataModule = (HWDataModule)Core.Instance.getService(HWDataModule.SERVICE_NAME);
 			m_labelModule = (LabelModule)Core.Instance.getService(LabelModule.SERVICE_NAME);
-			_startOpenTimer();
 			m_dataModule.WorkerDeviceLabelEvent += _dataModule_WorkerDeviceLabelEvent;
 			db = new pgworkDBEntities();
+
+
+			// DEBUG:
+			_startOpenTimer();
 		}
 
 		public Device findDevice(ushort _uDeviceId)
@@ -79,6 +81,13 @@ namespace pg_web.sys.pg {
 			DeviceLabelEventHandler(this, new DeviceLabelEvent(dev, label, packet.m_btSignalPower));
 		}
 
+		public bool postDeviceMessage(Device _device, String _strMessage)
+		{
+			return m_dataModule.sendPacket(new hw.DeviceMessagePacket((ushort)_device.deviceData, 0, _strMessage));
+		}
+
+		// DEBUG:
+		private int m_nIndex = 0;
 		private System.Timers.Timer m_openTimer;
 		private void _startOpenTimer() {
 			if (m_openTimer != null)
