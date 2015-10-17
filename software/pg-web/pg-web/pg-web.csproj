@@ -224,6 +224,7 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="sys\EventSystem.cs" />
+    <Compile Include="sys\pg\AreaModule.cs" />
     <Compile Include="sys\pg\Core.cs" />
     <Compile Include="sys\pg\HWDataModule.cs" />
     <Compile Include="sys\pg\DevicesModule.cs" />
