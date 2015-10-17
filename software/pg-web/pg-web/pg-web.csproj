@@ -232,6 +232,7 @@
     <Compile Include="sys\pg\hw\Packets.cs" />
     <Compile Include="sys\pg\IModule.cs" />
     <Compile Include="sys\pg\LabelModule.cs" />
+    <Compile Include="sys\pg\WorkDayModule.cs" />
     <Compile Include="sys\pg\WorkDayTimer.cs" />
   </ItemGroup>
   <ItemGroup>
