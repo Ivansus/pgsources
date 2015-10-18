@@ -46,8 +46,7 @@ namespace pg_web.sys.pg
 			m_stopTimer = new System.Timers.Timer();
 			m_stopTimer.Elapsed += _stopWorkdayTimer;
 
-			TimeSpan span = DateTime.Now.Subtract(new DateTime(1970, 1, 1, 0, 0, 0));
-			int nTimeNow = (int)span.TotalSeconds;
+			int nTimeNow = Core.now();
 
 			if (currentWorkDay == null)
 			{

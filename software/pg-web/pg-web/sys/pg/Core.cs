@@ -46,5 +46,10 @@ namespace pg_web.sys.pg
 				return instance;
 			}
 		}
+
+		public static int now()
+		{
+			return (int)DateTime.Now.Subtract(new DateTime(1970, 1, 1, 0, 0, 0)).TotalSeconds;
+		}
 	}
 }
