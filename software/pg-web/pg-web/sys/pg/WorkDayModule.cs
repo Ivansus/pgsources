@@ -78,7 +78,7 @@ namespace pg_web.sys.pg
 				{
 					WorkDay nextWorkDay = (
 						from m in db.WorkDays
-						where m.workDayState == WorkDayState.wdstNotStarted && m.endTime > nTimeNow
+						where m.workDayState == WorkDayState.wdstNotStarted && m.startTime > nTimeNow
 						orderby m.startTime
 						select m
 					).First<WorkDay>();
