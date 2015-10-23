@@ -65,7 +65,7 @@ namespace pg_web.sys.pg
 					where m.startTime <= unixTimestamp && m.endTime > unixTimestamp
 					select m
 				).First<WorkDay>();
-			} catch (Exception e)
+			} catch (Exception )
 			{
 				return null;
 			}
