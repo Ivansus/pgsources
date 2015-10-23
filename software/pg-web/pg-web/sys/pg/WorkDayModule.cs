@@ -85,7 +85,7 @@ namespace pg_web.sys.pg
 					if (nextWorkDay.startTime < nTimeNow)
 						m_startTimer.Interval = 5 * 1000;
 					else
-						m_startTimer.Interval = nextWorkDay.startTime - nTimeNow;
+						m_startTimer.Interval = (nextWorkDay.startTime - nTimeNow + 2) * 1000;
 					m_startTimer.Start();
 				}
 				catch (Exception)
