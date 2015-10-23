@@ -7,6 +7,26 @@ using System.Threading.Tasks;
 
 namespace pg_web.sys.pg
 {
+	class WorkDayStartEvent : EventArgs
+	{
+		public WorkDayStartEvent(WorkDay _workDay) {
+			workDay = _workDay;
+		}
+
+		public WorkDay workDay { get; }
+	}
+
+	class WorkDayStopEvent : EventArgs
+	{
+		public WorkDayStopEvent(WorkDay _workDay)
+		{
+			workDay = _workDay;
+		}
+
+		public WorkDay workDay { get; }
+
+	}
+
 	class WorkDayModule : IModule
 	{
 		public const String SERVICE_NAME = "WorkDay";
@@ -15,6 +35,9 @@ namespace pg_web.sys.pg
 		private System.Timers.Timer m_updateTimer;
 		private System.Timers.Timer m_startTimer;
 		private System.Timers.Timer m_stopTimer;
+
+		public event EventHandler<WorkDayStartEvent> WorkDayStartEventHandler;
+		public event EventHandler<WorkDayStopEvent> WorkDayStopEventHandler;
 
 		public void init()
 		{
@@ -98,6 +121,43 @@ namespace pg_web.sys.pg
 
 		private void _stopWorkdayTimer(object _sender, System.Timers.ElapsedEventArgs _args) {
 			m_stopTimer.Stop();
+		}
+
+		private void _startWorkDay(WorkDay _workDay)
+		{
+			_workDay.workDayState = WorkDayState.wdstInProgress;
+			db.SaveChanges();
+			WorkDayStartEventHandler(this, new WorkDayStartEvent(_workDay));
+		}
+
+		private void _stopWorkDay(WorkDay _workDay)
+		{
+			_workDay.workDayState = WorkDayState.wdstFinished;
+			db.SaveChanges();
+			WorkDayStopEventHandler(this, new WorkDayStopEvent(_workDay));
+		}
+
+		private void _finishAllWorkDays(WorkDay _excludeWorkDay)
+		{
+			try
+			{
+				List<WorkDay> startedWorkDays = (
+					from m in db.WorkDays
+					where m.workDayState == WorkDayState.wdstInProgress && m.startTime > Core.now() && m.endTime < Core.now()
+					select m
+				).ToList<WorkDay>();
+
+				foreach (WorkDay _day in startedWorkDays)
+				{
+					if (_excludeWorkDay != null && _day.workDayId == _excludeWorkDay.workDayId)
+						continue;
+					_stopWorkDay(_day);
+				}
+			}
+			catch (Exception)
+			{
+				currentWorkDay = null;
+			}
 		}
 	}
 }
