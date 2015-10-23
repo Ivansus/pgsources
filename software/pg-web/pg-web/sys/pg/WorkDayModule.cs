@@ -103,7 +103,7 @@ namespace pg_web.sys.pg
 				}
 				else
 				{
-					m_stopTimer.Interval = (nTimeNow - currentWorkDay.endTime) * 1000;
+					m_stopTimer.Interval = (currentWorkDay.endTime - nTimeNow + 2) * 1000;
 					m_stopTimer.Start();
 				}
 			}
