@@ -235,6 +235,7 @@
     <Compile Include="sys\pg\WorkAreaModule.cs" />
     <Compile Include="sys\pg\WorkDayModule.cs" />
     <Compile Include="sys\pg\WorkDayTimer.cs" />
+    <Compile Include="sys\pg\WorkShiftModule.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
