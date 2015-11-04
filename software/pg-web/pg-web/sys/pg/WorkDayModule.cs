@@ -1,6 +1,7 @@
 ﻿using pg_web.Models;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -113,6 +114,37 @@ namespace pg_web.sys.pg
 		}
 
 		private void _updateWorkdayTimer(object _sender, System.Timers.ElapsedEventArgs _args) {
+			int nTimeNow = Core.now();
+			try
+			{
+				WorkDay inProgressWorkDay = (
+					from m in db.WorkDays
+					where m.workDayState == WorkDayState.wdstInProgress
+					select m
+				).First<WorkDay>();
+				if (inProgressWorkDay.endTime < nTimeNow)
+					_stopWorkDay(inProgressWorkDay);
+				if (currentWorkDay != null && inProgressWorkDay.workDayId == currentWorkDay.workDayId)
+					currentWorkDay = null;
+			}
+			catch (Exception) {}
+
+			try
+			{
+				List<WorkDay> shouldBeStartedWorkDays = (
+					from m in db.WorkDays
+					where m.workDayState == WorkDayState.wdstNotStarted && m.startTime > nTimeNow && m.endTime < nTimeNow
+					select m
+				).ToList<WorkDay>();
+				Debug.Assert(shouldBeStartedWorkDays.Count <= 1); // System work only with one workday at the moment.
+				if (shouldBeStartedWorkDays.Count == 1)
+				{
+					// we should start this work day.
+					currentWorkDay = shouldBeStartedWorkDays[0];
+					_startWorkDay(shouldBeStartedWorkDays[0]);
+				}
+			}
+			catch (Exception) { }
 		}
 
 		private void _startWorkdayTimer(object _sender, System.Timers.ElapsedEventArgs _args) {
