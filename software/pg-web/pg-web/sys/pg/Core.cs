@@ -18,6 +18,7 @@ namespace pg_web.sys.pg
 			registerService(LabelModule.SERVICE_NAME, new LabelModule());
 			registerService(AreaModule.SERVICE_NAME, new AreaModule());
 			registerService(WorkDayModule.SERVICE_NAME, new WorkDayModule());
+			registerService(WorkAreaModule.SERVICE_NAME, new WorkAreaModule());
 
 			foreach (KeyValuePair<String, IModule> pair in m_services) {
 				pair.Value.init();
