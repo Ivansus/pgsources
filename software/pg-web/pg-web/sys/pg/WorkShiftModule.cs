@@ -40,16 +40,20 @@ namespace pg_web.sys.pg
 					select shift).ToList<WorkShift>();
 				foreach(WorkShift shift in shiftsToSignaled)
 					_resetWorkShift(shift, we, _event);
-
-			}
-			catch (Exception)
-			{
+			} catch (Exception) {
 				System.Diagnostics.Debug.Write("Exception on getting wirk shifts for work area vivst event '" + _event.workArea.workAreaName + "'.");
 			}
 		}
 
 		private void _resetWorkShift(WorkShift _shift, WorkEmployer _employer, WorkAreaVisitEvent _event)
 		{
+			if (_shift.workShiftType == WorkShiftTypes.wstOnce) {
+				// this is one call shift, like cook station, it signaled by some outside activity, not timer.
+			} else if (_shift.workShiftType == WorkShiftTypes.wstPassive)
+			{
+
+			}
+
 
 		}
 	}
