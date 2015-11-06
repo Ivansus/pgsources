@@ -7,6 +7,16 @@ using System.Threading.Tasks;
 
 namespace pg_web.sys.pg
 {
+	class WorkShiftInfoEvent : EventArgs
+	{
+		public WorkShiftInfoEvent(WorkShift _shift)
+		{
+			workShift = _shift;
+		}
+
+		public WorkShift workShift { get; }
+	}
+
 	class WorkShiftModule : IModule
 	{
 		public const String SERVICE_NAME = "WorkShiftModule";
@@ -14,6 +24,8 @@ namespace pg_web.sys.pg
 		private pgworkDBEntities db;
 		private WorkDayModule workDayModule;
 		private WorkAreaModule workAreaModule;
+
+		public event EventHandler<WorkShiftInfoEvent> ResetEventHandler;
 
 		public void init()
 		{
@@ -49,13 +61,22 @@ namespace pg_web.sys.pg
 		{
 			if (_shift.workShiftType == WorkShiftTypes.wstOnce) {
 				// this is one call shift, like cook station, it signaled by some outside activity, not timer.
+				_shift.notificationTimerDelay = Int32.MaxValue;
+				_shift.alarmTimerDelay = Int32.MaxValue;
+				_shift.shiftState = WorkShiftState.wssInactive;
+				db.SaveChangesAsync();
+				ResetEventHandler(this, new WorkShiftInfoEvent(_shift));
 			} else if (_shift.workShiftType == WorkShiftTypes.wstPassive)
 			{
-
+				// Passive work shifts created only for logging emploers access and havent timer and notifications.
+			} else if (_shift.workShiftType == WorkShiftTypes.wstActive)
+			{
+				int nNow = Core.now();
+				_shift.notificationTimerDelay = nNow + 5*60;
+				_shift.alarmTimerDelay = nNow + 10 * 60;
+				db.SaveChangesAsync();
+				ResetEventHandler(this, new WorkShiftInfoEvent(_shift));
 			}
-
-
 		}
 	}
-
 }
