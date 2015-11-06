@@ -593,10 +593,10 @@ warning 6002: The table/view 'D:\PROJECTS\PGSOURCE\SRC\SOFTWARE\PG-WEB\PG-WEB\AP
           <Property Name="workAreaId" Type="Int32" Nullable="false" />
           <Property Name="startTime" Type="Int32" Nullable="false" />
           <Property Name="endTime" Type="Int32" Nullable="false" />
-          <Property Name="workShiftType" Type="Int32" Nullable="false" />
+          <Property Name="workShiftType" Type="pgworkModel.WirkShiftTypes" Nullable="false" />
           <Property Name="notificationTimerDelay" Type="Int32" Nullable="false" />
           <Property Name="alarmTimerDelay" Type="Int32" Nullable="false" />
-          <Property Name="shiftState" Type="Int32" Nullable="false" />
+          <Property Name="shiftState" Type="pgworkModel.WorkShiftState" Nullable="false" />
           <NavigationProperty Name="WorkArea" Relationship="pgworkModel.FK_WorkShift_WorkArea" FromRole="WorkShift" ToRole="WorkArea" />
           <NavigationProperty Name="WorkShiftAccessEmployers" Relationship="pgworkModel.FK_WorkShiftAccessEmployers_WorkShift" FromRole="WorkShift" ToRole="WorkShiftAccessEmployer" />
           <NavigationProperty Name="WorkShiftNotificationEmployers" Relationship="pgworkModel.FK_WorkShiftNotificationEmployers_WorkShift" FromRole="WorkShift" ToRole="WorkShiftNotificationEmployer" />
@@ -799,6 +799,15 @@ warning 6002: The table/view 'D:\PROJECTS\PGSOURCE\SRC\SOFTWARE\PG-WEB\PG-WEB\AP
           <Member Name="wdstNotStarted" Value="0" />
           <Member Name="wdstInProgress" Value="1" />
           <Member Name="wdstFinished" Value="2" />
+        </EnumType>
+        <EnumType Name="WorkShiftState">
+          <Member Name="wssActive" Value="1" />
+          <Member Name="wssInactive" Value="0" />
+        </EnumType>
+        <EnumType Name="WirkShiftTypes">
+          <Member Name="wstActive" Value="0" />
+          <Member Name="wstPassive" Value="1" />
+          <Member Name="wstOnce" Value="2" />
         </EnumType>
       </Schema>
     </edmx:ConceptualModels>

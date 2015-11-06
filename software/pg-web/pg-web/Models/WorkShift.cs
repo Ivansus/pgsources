@@ -25,10 +25,10 @@ namespace pg_web.Models
         public int workAreaId { get; set; }
         public int startTime { get; set; }
         public int endTime { get; set; }
-        public int workShiftType { get; set; }
+        public WirkShiftTypes workShiftType { get; set; }
         public int notificationTimerDelay { get; set; }
         public int alarmTimerDelay { get; set; }
-        public int shiftState { get; set; }
+        public WorkShiftState shiftState { get; set; }
     
         public virtual WorkArea WorkArea { get; set; }
         public virtual ICollection<WorkShiftAccessEmployer> WorkShiftAccessEmployers { get; set; }

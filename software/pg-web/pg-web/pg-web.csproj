@@ -201,6 +201,9 @@
     <Compile Include="Models\Timer.cs">
       <DependentUpon>PGSystem.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\WirkShiftTypes.cs">
+      <DependentUpon>PGDBModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\WorkArea.cs">
       <DependentUpon>PGDBModel.tt</DependentUpon>
     </Compile>
@@ -220,6 +223,9 @@
       <DependentUpon>PGDBModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\WorkShiftNotificationEmployer.cs">
+      <DependentUpon>PGDBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\WorkShiftState.cs">
       <DependentUpon>PGDBModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
