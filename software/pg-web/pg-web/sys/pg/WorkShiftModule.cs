@@ -64,6 +64,7 @@ namespace pg_web.sys.pg
 				_shift.notificationTimerDelay = Int32.MaxValue;
 				_shift.alarmTimerDelay = Int32.MaxValue;
 				_shift.shiftState = WorkShiftState.wssInactive;
+				_shift.lastAccessTime = Core.now();
 				db.SaveChangesAsync();
 				ResetEventHandler(this, new WorkShiftInfoEvent(_shift));
 			} else if (_shift.workShiftType == WorkShiftTypes.wstPassive)
@@ -74,6 +75,7 @@ namespace pg_web.sys.pg
 				int nNow = Core.now();
 				_shift.notificationTimerDelay = nNow + 5*60;
 				_shift.alarmTimerDelay = nNow + 10 * 60;
+				_shift.lastAccessTime = Core.now();
 				db.SaveChangesAsync();
 				ResetEventHandler(this, new WorkShiftInfoEvent(_shift));
 			}

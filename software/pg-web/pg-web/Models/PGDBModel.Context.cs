@@ -37,5 +37,7 @@ namespace pg_web.Models
         public virtual DbSet<LastAreaAccess> LastAreaAccesses { get; set; }
         public virtual DbSet<WorkShiftAccessEmployer> WorkShiftAccessEmployers { get; set; }
         public virtual DbSet<WorkShiftNotificationEmployer> WorkShiftNotificationEmployers { get; set; }
+        public virtual DbSet<Table> Tables { get; set; }
+        public virtual DbSet<UnknownDevice> UnknownDevices { get; set; }
     }
 }

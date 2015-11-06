@@ -57,6 +57,19 @@ warning 6002: The table/view 'D:\PROJECTS\PGSOURCE\SRC\SOFTWARE\PG-WEB\PG-WEB\AP
           <Property Name="logId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="logString" Type="nvarchar" MaxLength="250" Nullable="false" />
         </EntityType>
+        <EntityType Name="Table">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UnknownDevices">
+          <Key>
+            <PropertyRef Name="unknownDeviceId" />
+          </Key>
+          <Property Name="unknownDeviceId" Type="int" Nullable="false" />
+          <Property Name="deviceData" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="WorkArea">
           <Key>
             <PropertyRef Name="workAreaId" />
@@ -98,6 +111,7 @@ warning 6002: The table/view 'D:\PROJECTS\PGSOURCE\SRC\SOFTWARE\PG-WEB\PG-WEB\AP
           <Property Name="notificationTimerDelay" Type="int" Nullable="false" />
           <Property Name="alarmTimerDelay" Type="int" Nullable="false" />
           <Property Name="shiftState" Type="int" Nullable="false" />
+          <Property Name="lastAccessTime" Type="int" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'D:\PROJECTS\PGSOURCE\SRC\SOFTWARE\PG-WEB\PG-WEB\APP_DATA\PGWORK.MDF.dbo.WorkShiftAccessEmployers' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -309,6 +323,8 @@ warning 6002: The table/view 'D:\PROJECTS\PGSOURCE\SRC\SOFTWARE\PG-WEB\PG-WEB\AP
           <EntitySet Name="Employer" EntityType="Self.Employer" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Label" EntityType="Self.Label" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Log" EntityType="Self.Log" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Table" EntityType="Self.Table" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UnknownDevices" EntityType="Self.UnknownDevices" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="WorkArea" EntityType="Self.WorkArea" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="WorkDay" EntityType="Self.WorkDay" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="WorkEmployers" EntityType="Self.WorkEmployers" Schema="dbo" store:Type="Tables" />
@@ -532,6 +548,8 @@ warning 6002: The table/view 'D:\PROJECTS\PGSOURCE\SRC\SOFTWARE\PG-WEB\PG-WEB\AP
             <End Role="WorkShift" EntitySet="WorkShifts" />
             <End Role="WorkShiftNotificationEmployer" EntitySet="WorkShiftNotificationEmployers" />
           </AssociationSet>
+          <EntitySet Name="Tables" EntityType="pgworkModel.Table" />
+          <EntitySet Name="UnknownDevices" EntityType="pgworkModel.UnknownDevice" />
         </EntityContainer>
         <EntityType Name="Device">
           <Key>
@@ -600,6 +618,7 @@ warning 6002: The table/view 'D:\PROJECTS\PGSOURCE\SRC\SOFTWARE\PG-WEB\PG-WEB\AP
           <NavigationProperty Name="WorkArea" Relationship="pgworkModel.FK_WorkShift_WorkArea" FromRole="WorkShift" ToRole="WorkArea" />
           <NavigationProperty Name="WorkShiftAccessEmployers" Relationship="pgworkModel.FK_WorkShiftAccessEmployers_WorkShift" FromRole="WorkShift" ToRole="WorkShiftAccessEmployer" />
           <NavigationProperty Name="WorkShiftNotificationEmployers" Relationship="pgworkModel.FK_WorkShiftNotificationEmployers_WorkShift" FromRole="WorkShift" ToRole="WorkShiftNotificationEmployer" />
+          <Property Name="lastAccessTime" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="LastAreaAccess">
           <Key>
@@ -809,6 +828,19 @@ warning 6002: The table/view 'D:\PROJECTS\PGSOURCE\SRC\SOFTWARE\PG-WEB\PG-WEB\AP
           <Member Name="wstPassive" Value="1" />
           <Member Name="wstOnce" Value="2" />
         </EnumType>
+        <EntityType Name="Table">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UnknownDevice">
+          <Key>
+            <PropertyRef Name="unknownDeviceId" />
+          </Key>
+          <Property Name="unknownDeviceId" Type="Int32" Nullable="false" />
+          <Property Name="deviceData" Type="Int32" Nullable="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -894,6 +926,7 @@ warning 6002: The table/view 'D:\PROJECTS\PGSOURCE\SRC\SOFTWARE\PG-WEB\PG-WEB\AP
           <EntitySetMapping Name="WorkShifts">
             <EntityTypeMapping TypeName="pgworkModel.WorkShift">
               <MappingFragment StoreEntitySet="WorkShift">
+                <ScalarProperty Name="lastAccessTime" ColumnName="lastAccessTime" />
                 <ScalarProperty Name="shiftState" ColumnName="shiftState" />
                 <ScalarProperty Name="alarmTimerDelay" ColumnName="alarmTimerDelay" />
                 <ScalarProperty Name="notificationTimerDelay" ColumnName="notificationTimerDelay" />
@@ -930,6 +963,21 @@ warning 6002: The table/view 'D:\PROJECTS\PGSOURCE\SRC\SOFTWARE\PG-WEB\PG-WEB\AP
                 <ScalarProperty Name="workEmployerId" ColumnName="workEmployerId" />
                 <ScalarProperty Name="workShiftId" ColumnName="workShiftId" />
                 <ScalarProperty Name="workDayId" ColumnName="workDayId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tables">
+            <EntityTypeMapping TypeName="pgworkModel.Table">
+              <MappingFragment StoreEntitySet="Table">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UnknownDevices">
+            <EntityTypeMapping TypeName="pgworkModel.UnknownDevice">
+              <MappingFragment StoreEntitySet="UnknownDevices">
+                <ScalarProperty Name="deviceData" ColumnName="deviceData" />
+                <ScalarProperty Name="unknownDeviceId" ColumnName="unknownDeviceId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

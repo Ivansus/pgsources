@@ -29,6 +29,7 @@ namespace pg_web.Models
         public int notificationTimerDelay { get; set; }
         public int alarmTimerDelay { get; set; }
         public WorkShiftState shiftState { get; set; }
+        public int lastAccessTime { get; set; }
     
         public virtual WorkArea WorkArea { get; set; }
         public virtual ICollection<WorkShiftAccessEmployer> WorkShiftAccessEmployers { get; set; }

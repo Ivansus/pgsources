@@ -198,8 +198,14 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>PGSystem.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\Table.cs">
+      <DependentUpon>PGDBModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Timer.cs">
       <DependentUpon>PGSystem.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\UnknownDevice.cs">
+      <DependentUpon>PGDBModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\WorkArea.cs">
       <DependentUpon>PGDBModel.tt</DependentUpon>

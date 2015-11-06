@@ -32,6 +32,8 @@
         <AssociationConnector Association="pgworkModel.FK_WorkShiftNotificationEmployers_WorkDay" />
         <AssociationConnector Association="pgworkModel.FK_WorkShiftNotificationEmployers_WorkEmploers" />
         <AssociationConnector Association="pgworkModel.FK_WorkShiftNotificationEmployers_WorkShift" />
+        <EntityTypeShape EntityType="pgworkModel.Table" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="pgworkModel.UnknownDevice" Width="1.5" PointX="5.75" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
