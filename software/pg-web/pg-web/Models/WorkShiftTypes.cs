@@ -11,7 +11,7 @@ namespace pg_web.Models
 {
     using System;
     
-    public enum WirkShiftTypes : int
+    public enum WorkShiftTypes : int
     {
         wstActive = 0,
         wstPassive = 1,

@@ -25,7 +25,7 @@ namespace pg_web.Models
         public int workAreaId { get; set; }
         public int startTime { get; set; }
         public int endTime { get; set; }
-        public WirkShiftTypes workShiftType { get; set; }
+        public WorkShiftTypes workShiftType { get; set; }
         public int notificationTimerDelay { get; set; }
         public int alarmTimerDelay { get; set; }
         public WorkShiftState shiftState { get; set; }

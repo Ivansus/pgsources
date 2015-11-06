@@ -593,7 +593,7 @@ warning 6002: The table/view 'D:\PROJECTS\PGSOURCE\SRC\SOFTWARE\PG-WEB\PG-WEB\AP
           <Property Name="workAreaId" Type="Int32" Nullable="false" />
           <Property Name="startTime" Type="Int32" Nullable="false" />
           <Property Name="endTime" Type="Int32" Nullable="false" />
-          <Property Name="workShiftType" Type="pgworkModel.WirkShiftTypes" Nullable="false" />
+          <Property Name="workShiftType" Type="pgworkModel.WorkShiftTypes" Nullable="false" />
           <Property Name="notificationTimerDelay" Type="Int32" Nullable="false" />
           <Property Name="alarmTimerDelay" Type="Int32" Nullable="false" />
           <Property Name="shiftState" Type="pgworkModel.WorkShiftState" Nullable="false" />
@@ -804,7 +804,7 @@ warning 6002: The table/view 'D:\PROJECTS\PGSOURCE\SRC\SOFTWARE\PG-WEB\PG-WEB\AP
           <Member Name="wssActive" Value="1" />
           <Member Name="wssInactive" Value="0" />
         </EnumType>
-        <EnumType Name="WirkShiftTypes">
+        <EnumType Name="WorkShiftTypes">
           <Member Name="wstActive" Value="0" />
           <Member Name="wstPassive" Value="1" />
           <Member Name="wstOnce" Value="2" />
